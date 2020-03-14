@@ -1,0 +1,26 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+.app_container {
+  min-height: 100vh;
+  background-color: lightcoral;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  margin: 0;
+  display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+  
+}

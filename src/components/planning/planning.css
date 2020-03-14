@@ -1,0 +1,53 @@
+.planning_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+  padding-top: 10rem;
+}
+
+.planning_title {
+  text-align: center;
+}
+
+.planning_container > div {
+  height: 20rem;
+  width: 25.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.planning_container > div > input {
+  width: 25rem;
+  height: 2rem;
+  font-size: 2rem;
+}
+
+.list_items {
+  color: red;
+  background-color: wheat;
+  /* cursor: pointer; */
+}
+
+.list_items:hover {
+  background-color: lightblue;
+}
+
+.control_container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.button {
+  height: 2rem;
+  width: 5rem;
+  border-style: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: aqua;
+}

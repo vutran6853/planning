@@ -1,0 +1,34 @@
+.introScreen_container {
+  /* border: 1px solid red; */
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.introScreen_container > h1 {
+  margin-bottom: 1rem;
+}
+
+.introScreen_container > button {
+  height: 5rem;
+  width: 10rem;
+  border-radius: 10px;
+  border-style: none;
+  font-size: 18px;
+  border: 1px solid lightskyblue;
+}
+
+
+.introScreen_container > button:hover {
+  cursor: pointer;
+  background-color: aqua;
+}
+
+@media only screen and (max-width: 600px) {
+  .introScreen_container {
+    min-height: calc(100vh - 250px);
+  }
+}
