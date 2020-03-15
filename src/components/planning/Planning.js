@@ -83,14 +83,14 @@ const Planning = Vue.extend({
   render() {
     let renderList = this.lists.map((value) => {
         return (
-          <div key={value.id} class="list_items" 
-            style={{height: '5rem'}}
+          <div key={value.id} class="list_items_container" 
+            
             onmouseenter={() => this.handleSetHoveringEnter(value.id)} 
             onmouseleave={(event) => this.handleSetHoveringLeave(event, value.id)}
             onclick={(event) => this.handleEditItem(event, value.id)}
           >
-            <p style={{color: value.complete ? 'yellow' : 'black'}}>{value.item}</p>
-            <input type="checkbox" oninput={() => this.handleSetComplete(value.id)}/>
+            <button class="item_complete_mark" onclick={() => this.handleSetComplete(value.id)}></button>
+            <p style={{textDecoration: value.complete ? 'line-through' : 'none', color: value.complete ? 'lightgrey' : 'black' }}>{value.item}</p>
             {this.isHoveOverX && this.hoveWhatItemID === value.id ? (<p onclick={() => this.handleRemoveItem(value.id)}>X</p>) : null}
           </div>
         )
@@ -113,9 +113,11 @@ const Planning = Vue.extend({
             oninput={this.handleSetApprendItem} 
             onkeypress={this.handleSetItemToList}
             placeholder="What needs to be done?"/>
-          {renderList}
-          {renderButtonControl}
         </div>
+        <div>
+            {renderList}
+            {renderButtonControl}
+          </div>
       </div>
     )
   }

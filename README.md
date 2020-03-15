@@ -1,5 +1,9 @@
 # what_my_plan
 
+## Goal
+This app have few great feature. Few of them are. A system to keep track of your reminder thing you are
+planning for daily routine.
+
 ## Project setup
 ```
 npm install
@@ -15,10 +19,8 @@ npm run serve
 npm run build
 ```
 
-### Run your unit tests
-```
-npm run test:unit
-```
+## TODO
+- pending
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Contributing
+Contributions and issues of any kind welcome!
