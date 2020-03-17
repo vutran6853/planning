@@ -1,0 +1,38 @@
+.whereTo_container {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.whereTo_container > h1 {
+  margin-bottom: 1rem;
+}
+
+.whereTo_container > div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10rem;
+  width: 30rem;
+}
+
+.whereTo_container > div > button {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 10px;
+}
+
+.whereTo_container > div > button:hover {
+  cursor: pointer;
+  background-color: aqua;
+}
+
+@media only screen and (max-width: 600px) {
+  .whereTo_container > div {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+}

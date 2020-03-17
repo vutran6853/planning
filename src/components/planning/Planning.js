@@ -25,7 +25,7 @@ const Planning = Vue.extend({
       if (event.key === 'Enter') {
         if (event.target.value !== '') {
           this.lists.push({
-            id: Math.random().toPrecision(2),
+            id: Math.random().toPrecision(3),
             item: this.apprendItem,
             complete: false
           })
@@ -41,9 +41,9 @@ const Planning = Vue.extend({
     },
     handleSetHoveringLeave() {
       this.isHoveOverX = false
-      // this.editModeCount = false
     },
     handleSetComplete(passID) {
+      // console.log('entert from phone');
       let oldLists = this.lists.map((value) => {
         if (value.id === passID) {
           value.complete = !value.complete
@@ -78,23 +78,40 @@ const Planning = Vue.extend({
     handleShowPending() {
       let oldLists = this.lists.filter((value) => !value.complete ? value: null)
       this.copyLists = oldLists
+    },
+    handleShowAllItem() {
+      this.copyLists = []
     }
   },
   render() {
     let renderList = this.lists.map((value) => {
         return (
-          <div key={value.id} class="list_items_container" 
-            
+          <div key={value.id} class="list_items_container"
             onmouseenter={() => this.handleSetHoveringEnter(value.id)} 
             onmouseleave={(event) => this.handleSetHoveringLeave(event, value.id)}
             onclick={(event) => this.handleEditItem(event, value.id)}
           >
-            <button class="item_complete_mark" onclick={() => this.handleSetComplete(value.id)}></button>
+            {/* <input class="item_complete_mark_inner" type="checkbox" oninput={() => this.handleSetComplete(value.id)}></input> */}
+            <label class="item_complete_mark" style={{backgroundColor: value.complete ? 'lightskyblue': 'white'}} onclick={() => this.handleSetComplete(value.id)}></label>
             <p style={{textDecoration: value.complete ? 'line-through' : 'none', color: value.complete ? 'lightgrey' : 'black' }}>{value.item}</p>
             {this.isHoveOverX && this.hoveWhatItemID === value.id ? (<p onclick={() => this.handleRemoveItem(value.id)}>X</p>) : null}
           </div>
         )
       })
+
+    let renderCopyList = this.copyLists.map((value) => {
+      return (
+        <div key={value.id} class="list_items_container"
+          onmouseenter={() => this.handleSetHoveringEnter(value.id)} 
+          onmouseleave={(event) => this.handleSetHoveringLeave(event, value.id)}
+          onclick={(event) => this.handleEditItem(event, value.id)}
+        >
+          <label class="item_complete_mark" style={{backgroundColor: value.complete ? 'lightskyblue': 'white'}} onclick={() => this.handleSetComplete(value.id)}></label>
+          <p style={{textDecoration: value.complete ? 'line-through' : 'none', color: value.complete ? 'lightgrey' : 'black' }}>{value.item}</p>
+          {this.isHoveOverX && this.hoveWhatItemID === value.id ? (<p onclick={() => this.handleRemoveItem(value.id)}>X</p>) : null}
+        </div>
+      )
+    })
 
     let renderButtonControl = this.lists.length !== 0 ? (
       <div class="control_container">
@@ -115,9 +132,9 @@ const Planning = Vue.extend({
             placeholder="What needs to be done?"/>
         </div>
         <div>
-            {renderList}
-            {renderButtonControl}
-          </div>
+          {this.copyLists.length === 0 ? renderList: renderCopyList}
+          {renderButtonControl}
+        </div>
       </div>
     )
   }

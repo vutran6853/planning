@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 10rem;
+  /* width: 100vw; */
 }
 
 .planning_title {
@@ -11,6 +12,7 @@
 
 .planning_container > div {
   width: 25.2rem;
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,16 +25,13 @@
 }
 
 .list_items_container {
-  /* color: red; */
-  /* background-color: wheat; */
-  background-color: whitesmoke;
+  background-color: white;
   font-size: 2rem;
   height: 3rem;
   display: grid;
-
-  grid-template-columns: 2rem 1fr 2rem;
-  /* align-content: center; */
+  grid-template-columns: 3rem 1fr 2rem;
   align-items: center;
+  position: relative;
 }
 
 .list_items_container > p {
@@ -45,9 +44,11 @@
   height: 2rem;
   width: 2rem;
   cursor: pointer;
-  background-color: lightgray;
   border-radius: 50%;
   border-style: none;
+  border: 1px solid lavender;
+
+  
 }
 
 .list_items_container:hover {
@@ -58,16 +59,46 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
+  margin-top: 1rem;
 }
 
+input[type="checkbox"] {
+  margin: 1rem;
+}
 .button {
   height: 2rem;
   width: 5rem;
-  border-style: none;
+  /* border-style: none; */
   border-radius: 5px;
   cursor: pointer;
 }
 
 .button:hover {
   background-color: aqua;
+}
+
+@media screen and (max-width: 400px) {
+  .planning_container > div {
+    align-items: center;
+    width: 22rem;
+  }
+
+  .planning_container > div > input {
+    width: 22rem;
+    font-size: 1.5rem;
+  }
+
+  .list_items_container {
+    height: 3rem;
+    width: 100%;
+    grid-template-columns: 3rem 1fr 2rem;
+  }
+
+  .list_items_container > label {
+    margin: auto;
+  }
+
+  .control_container {
+    justify-content: space-between;
+  }
 }

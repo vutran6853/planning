@@ -6,7 +6,7 @@ const IntroScreen = Vue.extend({
   methods: {
     handleRouteTo() {
       this.$router.push({
-        path: '/planning'
+        path: '/whereTo'
       })
     }
   },

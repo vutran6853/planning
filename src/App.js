@@ -7,7 +7,7 @@ const App = Vue.extend({
   render() {
     return (
       <div class="app_container">
-        {/* <Navbar /> */}
+        <Navbar />
         <router-view></router-view>
       </div>
     )

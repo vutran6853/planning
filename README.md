@@ -20,7 +20,9 @@ npm run build
 ```
 
 ## TODO
-- pending
+- calendar to view your plan
+- account to save your activity
+- add test to app
 
 ## Contributing
 Contributions and issues of any kind welcome!
