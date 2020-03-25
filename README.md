@@ -4,6 +4,10 @@
 This app have few great feature. Few of them are. A system to keep track of your reminder thing you are
 planning for daily routine.
 
+## Features
+
+- Built with Vue + JSX
+
 ## Project setup
 ```
 npm install

@@ -1,18 +1,25 @@
 import Vue from 'vue'
 import './planning.css'
+import { constants } from '../../store/store'
+
+const { action } = constants
 
 const Planning = Vue.extend({
   name: 'Planning',
   data() {
     return {
-      lists: [],
-      copyLists: [],
       apprendItem: '',
       isHoveOverX: false,
       hoveWhatItemID: '',
       isEditItem: false,
-      editModeCount: 0
+      editModeCount: 0,
+      isShowComplete: false,
+      isShowAll: true,
+      isShowPending: false
     }
+  },
+  mounted() {
+    console.log('this.$store', this.$store)
   },
   methods: {
     handleSetApprendItem(event) {
@@ -24,7 +31,7 @@ const Planning = Vue.extend({
     handleSetItemToList(event) {
       if (event.key === 'Enter') {
         if (event.target.value !== '') {
-          this.lists.push({
+          this.$store.dispatch(constants.action.setNewItemToList, {
             id: Math.random().toPrecision(3),
             item: this.apprendItem,
             complete: false
@@ -43,53 +50,41 @@ const Planning = Vue.extend({
       this.isHoveOverX = false
     },
     handleSetComplete(passID) {
-      // console.log('entert from phone');
-      let oldLists = this.lists.map((value) => {
-        if (value.id === passID) {
-          value.complete = !value.complete
-        }
-        return value
-      })
-      this.lists = oldLists
+      this.$store.dispatch(action.setItemComplete, passID)
     },
     handleRemoveItem(passID) {
-      let oldLists = this.lists.filter((value) => {
-        if (value.id !== passID) {
-          return value
-        }
-        return null
-      })
-      this.lists = oldLists
-    },
-    handleEditItem(event) {
-      if (event.type === 'click') {
-        if (this.editModeCount !== 2) {
-          this.editModeCount = this.editModeCount + 1
-          if (this.editModeCount === 2) {
-            this.editModeCount = true
-          }
-        }
-      }
+      this.$store.dispatch(action.removeItemFromList, passID)
     },
     handleShowComplete() {
-      let oldLists = this.lists.filter((value) => value.complete ? value : null)
-      this.copyLists = oldLists
+      this.$store.dispatch(action.setShowCompleteItems)
+      this.isShowAll = false
+      this.isShowComplete = true
     },
     handleShowPending() {
-      let oldLists = this.lists.filter((value) => !value.complete ? value: null)
-      this.copyLists = oldLists
+      this.$store.dispatch(action.setShowPendingItems)
+      this.isShowPending = true
+      this.isShowComplete = false
+      this.isShowAll= false
     },
     handleShowAllItem() {
-      this.copyLists = []
+      this.isShowAll = true,
+      this.isShowComplete = false
+    },
+  },
+  computed: {
+    copyLists: {
+      get() {
+        return this.$store.getters.showCopyLists
+      }
     }
   },
   render() {
-    let renderList = this.lists.map((value) => {
+    // console.log('this', this.$store)
+    let renderList = this.$store.state.lists.map((value) => {
         return (
           <div key={value.id} class="list_items_container"
             onmouseenter={() => this.handleSetHoveringEnter(value.id)} 
             onmouseleave={(event) => this.handleSetHoveringLeave(event, value.id)}
-            onclick={(event) => this.handleEditItem(event, value.id)}
           >
             {/* <input class="item_complete_mark_inner" type="checkbox" oninput={() => this.handleSetComplete(value.id)}></input> */}
             <label class="item_complete_mark" style={{backgroundColor: value.complete ? 'lightskyblue': 'white'}} onclick={() => this.handleSetComplete(value.id)}></label>
@@ -99,7 +94,8 @@ const Planning = Vue.extend({
         )
       })
 
-    let renderCopyList = this.copyLists.map((value) => {
+    let renderCopyList = this.isShowComplete ? this.copyLists.map((value) => {
+      console.log('object', value);
       return (
         <div key={value.id} class="list_items_container"
           onmouseenter={() => this.handleSetHoveringEnter(value.id)} 
@@ -111,9 +107,9 @@ const Planning = Vue.extend({
           {this.isHoveOverX && this.hoveWhatItemID === value.id ? (<p onclick={() => this.handleRemoveItem(value.id)}>X</p>) : null}
         </div>
       )
-    })
+    }) : null
 
-    let renderButtonControl = this.lists.length !== 0 ? (
+    let renderButtonControl = this.$store.state.lists.length !== 0 ? (
       <div class="control_container">
         <button class="button" onclick={() => this.handleShowAllItem()}>All</button>
         <button class="button" onclick={() => this.handleShowPending()}>Pending</button>
@@ -132,8 +128,9 @@ const Planning = Vue.extend({
             placeholder="What needs to be done?"/>
         </div>
         <div>
-          {this.copyLists.length === 0 ? renderList: renderCopyList}
+          {this.isShowAll ? renderList : renderCopyList}
           {renderButtonControl}
+          
         </div>
       </div>
     )
